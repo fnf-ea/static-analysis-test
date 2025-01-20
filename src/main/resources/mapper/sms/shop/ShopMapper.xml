@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sms.shop.ShopMapper">
+    <!-- 매장 단건 조회 윤형도/20221228-->
+    <select id="selectOneShop"
+            parameterType="com.fnfcorp.sms.shop.domain.entity.Shop"
+            resultType="com.fnfcorp.sms.shop.domain.entity.Shop">
+        /*id="selectOneShop" 매장 단건 조회*/
+        SELECT id,
+               code,
+               name
+        FROM shop.shop
+        where id = #{id}
+    </select>
+</mapper>

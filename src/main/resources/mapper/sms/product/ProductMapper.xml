@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sms.product.ProductMapper">
+    <!-- selectOneScs 윤형도/20221228-->
+    <select id="selectOneScs"
+            parameterType="com.fnfcorp.sms.product.domain.entity.Scs"
+            resultType="com.fnfcorp.sms.product.domain.entity.Scs">
+        /*id="selectOneScs" scs 단건 조회*/
+        SELECT id,
+               style_id  as styleId,
+               color_id  as colorId,
+               size_id   as sizeId,
+               tag_price as tagPrice
+        FROM product.scs a
+        WHERE a.id = #{id}
+    </select>
+</mapper>

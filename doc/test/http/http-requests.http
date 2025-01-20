@@ -1,0 +1,43 @@
+### 판매대기열 등록
+POST http://localhost:8080/v1/sale/que
+Content-Type: application/json
+Accept: application/json
+
+{
+  "rfidCode": "306F48284650F04005F624632344D200",
+  "shopId": 1
+}
+
+### 판매대기열 조회
+GET http://localhost:8080/v1/sale/que?shopId=1&startDate=2023-01-01&endDate=2023-12-31
+Accept: application/json
+
+### 판매 조회
+GET http://localhost:8080/v1/sale/history?shopId=1&startDate=2023-01-01&endDate=2023-12-31
+Accept: application/json
+
+### 판매등록
+POST http://localhost:8080/v1/sale/history
+Content-Type: application/json
+Accept: application/json
+
+{
+  "items" : [
+    {
+      "saleQueId": 1,
+      "rfidId": 1,
+      "rfidCode": "306F48284650F04005F624632344D200",
+      "shopId": 1,
+      "shopCode": "S001",
+      "scsId": 1,
+      "styleCode": "3ZW5C5342",
+      "sizeCode": "S",
+      "colorCode": "BK",
+      "saleQueDate": "2023-01-01",
+      "actualPrice" : 10000,
+      "memberId": "1"
+    }
+  ]
+}
+
+

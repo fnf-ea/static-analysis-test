@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sms.rfid.RfidMapper">
+    <!-- Rfid 단건 조회 윤형도/20221228-->
+    <select id="selectOneRfid"
+            parameterType="com.fnfcorp.sms.rfid.domain.entity.Rfid"
+            resultType="com.fnfcorp.sms.rfid.domain.entity.Rfid">
+        /*id="selectOneRfid" Rifd 단건 조회*/
+        SELECT id,
+        code,
+        scs_id as scsId,
+        location_code as locationCode,
+        status_code as statusCode
+        FROM rfid.rfid
+        WHERE
+        <trim prefixOverrides="AND">
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="code != null and code != ''">
+                AND code = #{code}
+            </if>
+        </trim>
+    </select>
+
+    <!-- RfidStatus Update 윤형도/20221228-->
+    <update id="updateRfidStatus" parameterType="com.fnfcorp.sms.rfid.domain.entity.Rfid">
+        /*id="updateRfidStatus" Rifd Statue 갱신*/
+        UPDATE rfid.rfid
+        SET
+        <trim prefixOverrides=",">
+            <if test="statusCode != null and  locationCode != '' ">
+                , status_code = #{statusCode}
+            </if>
+            <if test="locationCode != null and locationCode != ''">
+                , location_code = #{locationCode}
+            </if>
+        </trim>
+        WHERE id = #{id}
+    </update>
+</mapper>

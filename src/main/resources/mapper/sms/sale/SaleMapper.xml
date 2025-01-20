@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sms.sale.SaleMapper">
+    <!-- 판매대기열 조회 윤형도/20221228-->
+    <select id="selectSaleQueDetailList"
+            parameterType="com.fnfcorp.sms.sale.domain.query.GetSaleQueDetailListQuery"
+            resultType="com.fnfcorp.sms.sale.domain.info.SaleQueDetailInfo">
+        /*id="selectSaleQueDetailList" 판매대기열 조회*/
+        SELECT sale_queue.id as                 "id",
+               sale_queue.rfid_id         as "rfidId",
+               rfid.code                  as "rfidCode",
+               sale_queue.shop_id         as "shopId",
+               shop.code                  as "shopCode",
+               sale_queue.scs_id          as "scsId",
+               scs.style_id               as "styleId",
+               style.code                 as "styleCode",
+               scs.color_id               as "colorId",
+               color.code                 as "colorCode",
+               scs.size_id                as "sizeId",
+               size.code                  as "sizeCode",
+               sale_queue.sale_queue_date as "saleQuedate"
+        FROM sale.sale_queue
+                 INNER JOIN rfid.rfid ON rfid.id = sale_queue.rfid_id
+                 INNER JOIN shop.shop ON shop.id = sale_queue.shop_id
+                 INNER JOIN product.scs ON scs.id = sale_queue.scs_id
+                 INNER JOIN product.style ON style.id = scs.style_id
+                 INNER JOIN product.color ON color.id = scs.color_id
+                 INNER JOIN product.size ON size.id = scs.size_id
+        WHERE sale_queue_date BETWEEN #{startDate} AND #{endDate}
+          AND shop_id = #{shopId}
+    </select>
+    <!-- 판매대기열 등록 윤형도/20221228-->
+    <insert id="insertSaleQue"
+            parameterType="com.fnfcorp.sms.sale.domain.entity.SaleQue" useGeneratedKeys="true" keyProperty="id">
+        /*id="insertSaleQue" 판매대기열 등록*/
+        INSERT INTO sale.sale_queue (rfid_id, shop_id, scs_id, sale_queue_date)
+        VALUES (#{rfidId}, #{shopId}, #{scsId}, #{saleQueDate})
+    </insert>
+
+    <!-- 판매 대기열 삭제 윤형도/20221228-->
+    <delete id="deleteSaleQue"
+            parameterType="com.fnfcorp.sms.sale.domain.entity.SaleQue">
+        /*id="deleteSaleQue" 판매 대기열 삭제*/
+        DELETE
+        FROM sale.sale_queue
+        WHERE id = #{id}
+    </delete>
+
+    <!-- 판매 등록 윤형도/20221228-->
+    <insert id="insertSale"
+            parameterType="com.fnfcorp.sms.sale.domain.entity.Sale" useGeneratedKeys="true" keyProperty="id">
+        /*id="insertSale" 판매 등록*/
+        INSERT INTO sale.sale (rfid_id, shop_id, scs_id, actual_price, member_id, sale_date)
+        VALUES (#{rfidId}, #{shopId}, #{scsId}, #{actualPrice}, #{memberId}, #{saleDate})
+    </insert>
+
+    <!-- 판매 조회 윤형도/20221228-->
+    <select id="selectSaleDetailList"
+            parameterType="com.fnfcorp.sms.sale.domain.query.GetSaleDetailListQuery"
+            resultType="com.fnfcorp.sms.sale.domain.info.SaleDetailInfo">
+        /*id="selectSaleDetailList" 판매목록 조회*/
+        SELECT sale.id,
+               sale.rfid_id   as rfidId,
+               rfid.code      as rfidCode,
+               sale.shop_id   as shopId,
+               shop.code      as shopCode,
+               shop.name      as shopName,
+               sale.scs_id    as scsId,
+               scs.style_id   as styleId,
+               style.code     as styleCode,
+               style.name     as styleName,
+               scs.color_id   as colorId,
+               color.code     as colorCode,
+               scs.size_id    as sizeId,
+               size.code      as sizeCode,
+               sale.sale_date as saleDate,
+               sale.actual_price as actualPrice,
+               member.uuid as memberUuid,
+               member.user_name as memberName
+        FROM sale.sale
+                 INNER JOIN rfid.rfid ON rfid.id = sale.rfid_id
+                 INNER JOIN shop.shop ON shop.id = sale.shop_id
+                 INNER JOIN product.scs ON scs.id = sale.scs_id
+                 INNER JOIN product.style ON style.id = scs.style_id
+                 INNER JOIN product.color ON color.id = scs.color_id
+                 INNER JOIN product.size ON size.id = scs.size_id
+                 LEFT OUTER JOIN member.member ON member.id = sale.member_id
+        WHERE sale_date BETWEEN #{startDate} AND #{endDate}
+          AND shop_id = #{shopId}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,198 @@
+### 판매대기열 등록1
+POST http://localhost:8080/v1/sale/que
+Content-Type: application/json
+Accept: application/json
+
+{
+  "rfidCode": "306F48284650F04005F624632344D200",
+  "shopId": 1
+}
+
+### 판매대기열 등록2
+POST http://localhost:8080/v1/sale/que
+Content-Type: application/json
+Accept: application/json
+
+{
+  "rfidCode": "306F48284650F04005F624632344D201",
+  "shopId": 1
+}
+
+
+### 판매대기열 등록3
+POST http://localhost:8080/v1/sale/que
+Content-Type: application/json
+Accept: application/json
+
+{
+  "rfidCode": "306F48284650F04005F624632344D202",
+  "shopId": 1
+}
+
+
+### 판매대기열 등록4
+POST http://localhost:8080/v1/sale/que
+Content-Type: application/json
+Accept: application/json
+
+{
+  "rfidCode": "305F48284650F04005F624D12344D200",
+  "shopId": 1
+}
+
+
+### 판매대기열 등록5
+POST http://localhost:8080/v1/sale/que
+Content-Type: application/json
+Accept: application/json
+
+{
+  "rfidCode": "304F48284650F04005F624D12344D200",
+  "shopId": 1
+}
+
+
+
+### 판매등록
+POST http://localhost:8080/v1/sale/history
+Content-Type: application/json
+Accept: application/json
+
+{
+  "items" : [
+    {
+      "saleQueId": 1,
+      "rfidId": 1,
+      "rfidCode": "306F48284650F04005F624632344D200",
+      "shopId": 1,
+      "shopCode": "S001",
+      "scsId": 1,
+      "styleCode": "3ZW5C5342",
+      "sizeCode": "S",
+      "colorCode": "BK",
+      "saleQueDate": "2022-12-28",
+      "actualPrice" : 10000,
+      "memberId": 1
+    },
+    {
+      "saleQueId": 2,
+      "rfidId": 2,
+      "rfidCode": "306F48284650F04005F624632344D201",
+      "shopId": 1,
+      "shopCode": "S001",
+      "scsId": 1,
+      "styleCode": "3ZW5C5342",
+      "sizeCode": "S",
+      "colorCode": "BK",
+      "saleQueDate": "2022-12-28",
+      "actualPrice" : 10000,
+      "memberId": 1
+    },
+    {
+      "saleQueId": 3,
+      "rfidId": 3,
+      "rfidCode": "306F48284650F04005F624632344D202",
+      "shopId": 1,
+      "shopCode": "S001",
+      "scsId": 1,
+      "styleCode": "3ZW5C5342",
+      "sizeCode": "S",
+      "colorCode": "BK",
+      "saleQueDate": "2022-12-28",
+      "actualPrice" : 10000
+    },
+    {
+      "saleQueId": 4,
+      "rfidId": 4,
+      "rfidCode": "305F48284650F04005F624D12344D200",
+      "shopId": 1,
+      "shopCode": "S001",
+      "scsId": 1,
+      "styleCode": "3ZW5C5342",
+      "sizeCode": "S",
+      "colorCode": "BK",
+      "saleQueDate": "2022-12-28",
+      "actualPrice" : 10000
+    },
+    {
+      "saleQueId": 5,
+      "rfidId": 5,
+      "rfidCode": "304F48284650F04005F624D12344D200",
+      "shopId": 1,
+      "shopCode": "S001",
+      "scsId": 1,
+      "styleCode": "3ZW5C5342",
+      "sizeCode": "S",
+      "colorCode": "BK",
+      "saleQueDate": "2022-12-28",
+      "actualPrice" : 10000,
+      "memberId": 2
+    }
+  ]
+}
+
+
+
+### 판매대기열 조회
+GET http://localhost:8080/v1/sale/que?shopId=1&startDate=2022-12-01
+Accept: application/json
+
+### 판매 조회
+GET http://localhost:8080/v1/sale/history?shopId=1&startDate=2022-12-01&endDate=2023-12-31
+Accept: application/json
+
+
+### 판매대기열 등록 -RFID 자릿수 다름
+POST http://localhost:8080/v1/sale/que
+Content-Type: application/json
+Accept: application/json
+
+{
+  "rfidCode": "306F48284650F04005F624632344D20",
+  "shopId": 1
+}
+
+### 판매대기열 등록 - 27번째자리가 숫자가 아님
+POST http://localhost:8080/v1/sale/que
+Content-Type: application/json
+Accept: application/json
+
+{
+  "rfidCode": "306F48284650F04005F6246323X4D200",
+  "shopId": 1
+}
+
+
+### 판매대기열 등록 - 27번째자리가 숫자가 아님
+POST http://localhost:8080/v1/sale/que
+Content-Type: application/json
+Accept: application/json
+
+{
+  "rfidCode": "306F48284650F04005F6246323X4D200",
+  "shopId": 1
+}
+
+
+### 판매등록 salque, rfidId 없음 rfid 자릿수(+1) 다르고, 27번째자리가 숫자가 아님
+POST http://localhost:8080/v1/sale/history
+Content-Type: application/json
+Accept: application/json
+
+{
+  "items" : [
+    {
+      "rfidCode": "306F48284650F04005F6246323X4D2000",
+      "shopId": 1,
+      "shopCode": "S001",
+      "scsId": 1,
+      "styleCode": "3ZW5C5342",
+      "sizeCode": "S",
+      "colorCode": "BK",
+      "saleQueDate": "2022-12-28",
+      "actualPrice" : 10000,
+      "memberId": 1
+    }
+  ]
+}
+
